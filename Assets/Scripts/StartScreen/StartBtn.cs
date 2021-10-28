@@ -30,7 +30,7 @@ public class StartBtn : MonoBehaviour
     {
         if (data.success && data.available_seats == 0)
         {
-            PaintSplatManager.instance.goto_battleground(session_id, player_id);
+            PaintSplatManager.instance.goto_battleground(session_id, player_id, false);
         }
     }
 

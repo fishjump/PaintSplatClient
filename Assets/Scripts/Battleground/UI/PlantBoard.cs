@@ -44,11 +44,25 @@ public sealed partial class PlantBoard : BattlegroundObject
             GameObject clone;
             if (log.player_id == PaintSplatManager.instance.player_id)
             {
-                clone = Instantiate(red_circle, pos, new Quaternion());
+                if (PaintSplatManager.instance.is_host)
+                {
+                    clone = Instantiate(red_circle, pos, new Quaternion());
+                }
+                else
+                {
+                    clone = Instantiate(blue_circle, pos, new Quaternion());
+                }
             }
             else
             {
-                clone = Instantiate(blue_circle, pos, new Quaternion());
+                if (!PaintSplatManager.instance.is_host)
+                {
+                    clone = Instantiate(red_circle, pos, new Quaternion());
+                }
+                else
+                {
+                    clone = Instantiate(blue_circle, pos, new Quaternion());
+                }
             }
 
             if (!gameObject.contains(clone))
@@ -108,14 +122,34 @@ public sealed partial class PlantBoard : BattlegroundObject
 
     private void move()
     {
-        while (!try_move(delta))
+        if (PaintSplatManager.instance.is_host)
         {
-            update_direction();
+            while (!try_move(delta))
+            {
+                update_direction();
+            }
+            UploadBoardRequest request = new UploadBoardRequest();
+            request.session_id = PaintSplatManager.instance.session_id;
+            request.player_id = PaintSplatManager.instance.player_id;
+            request.pos.x = gameObject.transform.position.x;
+            request.pos.y = gameObject.transform.position.y;
+            PaintSplatManager.instance.upload_session_board(request, null);
+        }
+        else
+        {
+            SyncBoardRequest request = new SyncBoardRequest();
+            request.session_id = PaintSplatManager.instance.session_id;
+            PaintSplatManager.instance.sync_session_board(request, (SyncBoardResponse data) =>
+            {
+                Vector2 delta = new Vector2(data.pos.x - pos.x, data.pos.y - pos.y);
+                gameObject.transform.Translate(delta, Space.World);
+            });
         }
     }
 
     void Start()
     {
+        Random.InitState(0);
         update_direction();
     }
 

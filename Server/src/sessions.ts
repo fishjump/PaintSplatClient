@@ -4,6 +4,7 @@ interface Session {
     host: string
     guest: string
     id: string
+    pos: { x: number, y: number }
     logs: { player_id: string; pos: { x: number; y: number } }[]
 }
 
@@ -14,6 +15,7 @@ export const createSession = (hostPlayer: string): Session => {
         host: hostPlayer,
         guest: '',
         id: uuidv4().substr(0, 4),
+        pos: { x: 0, y: 0 },
         logs: [],
     }
     globalSessions[session.id] = session

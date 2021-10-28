@@ -147,4 +147,50 @@ app.post<{ Body: Static<typeof BattlegroundRequest> }>(
     }
 )
 
+app.post<{ Body: Static<typeof BattlegroundRequest> }>(
+    '/battleground/board/upload',
+    { schema: { body: BattlegroundRequest } },
+    async (
+        {
+            body: {
+                session_id: sessionId,
+                player_id: playerId,
+                pos: { x, y },
+            },
+        },
+        reply
+    ) => {
+        const session = getSession(sessionId)
+        if (session === null) {
+            reply.code(404)
+            return { success: false, reason: 'Session not found' }
+        }
+
+        session.pos = { x, y }
+
+        return { success: true, reason: '' }
+    }
+)
+
+app.post<{ Body: Static<typeof BattlegroundRequest> }>(
+    '/battleground/board/sync',
+    { schema: { body: BattlegroundRequest } },
+    async (
+        {
+            body: {
+                session_id: sessionId
+            },
+        },
+        reply
+    ) => {
+        const session = getSession(sessionId)
+        if (session === null) {
+            reply.code(404)
+            return { success: false, reason: 'Session not found' }
+        }
+
+        return { success: true, reason: '', pos: session.pos }
+    }
+)
+
 app.listen(8000, '0.0.0.0')

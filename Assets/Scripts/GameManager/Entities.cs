@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-public enum Role { red, blue, green, yellow }
-
 [Serializable]
 public struct Position
 {
@@ -29,7 +27,6 @@ public struct CreateSessionResponse
     public bool success;
     public string reason;
     public string session_id;
-    public Role role;
 }
 
 [Serializable]
@@ -90,4 +87,33 @@ public struct GetSessioInfoResponse
     public string reason;
     public int available_seats;
     public string winner_id;
+}
+
+[Serializable]
+public struct UploadBoardRequest
+{
+    public string session_id;
+    public string player_id;
+    public Position pos;
+}
+
+[Serializable]
+public struct UploadBoardResponse
+{
+    public bool success;
+    public string reason;
+}
+
+[Serializable]
+public struct SyncBoardRequest
+{
+    public string session_id;
+}
+
+[Serializable]
+public struct SyncBoardResponse
+{
+    public bool success;
+    public string reason;
+    public Position pos;
 }
