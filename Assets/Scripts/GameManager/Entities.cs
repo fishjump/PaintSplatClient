@@ -89,4 +89,5 @@ public struct GetSessioInfoResponse
     public bool success;
     public string reason;
     public int available_seats;
+    public string winner_id;
 }
