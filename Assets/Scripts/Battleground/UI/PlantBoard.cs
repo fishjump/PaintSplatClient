@@ -55,7 +55,7 @@ public sealed partial class PlantBoard : BattlegroundObject
             }
             else
             {
-                if (!PaintSplatManager.instance.is_host)
+                if (PaintSplatManager.instance.is_host)
                 {
                     clone = Instantiate(red_circle, pos, new Quaternion());
                 }
@@ -141,8 +141,11 @@ public sealed partial class PlantBoard : BattlegroundObject
             request.session_id = PaintSplatManager.instance.session_id;
             PaintSplatManager.instance.sync_session_board(request, (SyncBoardResponse data) =>
             {
-                Vector2 delta = new Vector2(data.pos.x - pos.x, data.pos.y - pos.y);
-                gameObject.transform.Translate(delta, Space.World);
+                if (data.success)
+                {
+                    Vector2 delta = new Vector2(data.pos.x - pos.x, data.pos.y - pos.y);
+                    gameObject.transform.Translate(delta, Space.World);
+                }
             });
         }
     }

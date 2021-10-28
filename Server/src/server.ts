@@ -147,9 +147,15 @@ app.post<{ Body: Static<typeof BattlegroundRequest> }>(
     }
 )
 
-app.post<{ Body: Static<typeof BattlegroundRequest> }>(
+const UploadBoardRequest = Type.Object({
+    session_id: Type.String(),
+    player_id: Type.String(),
+    pos: Type.Object({ x: Type.Number(), y: Type.Number() }),
+})
+
+app.post<{ Body: Static<typeof UploadBoardRequest> }>(
     '/battleground/board/upload',
-    { schema: { body: BattlegroundRequest } },
+    { schema: { body: UploadBoardRequest } },
     async (
         {
             body: {
@@ -172,9 +178,13 @@ app.post<{ Body: Static<typeof BattlegroundRequest> }>(
     }
 )
 
-app.post<{ Body: Static<typeof BattlegroundRequest> }>(
+const SyncBoardRequest = Type.Object({
+    session_id: Type.String(),
+})
+
+app.post<{ Body: Static<typeof SyncBoardRequest> }>(
     '/battleground/board/sync',
-    { schema: { body: BattlegroundRequest } },
+    { schema: { body: SyncBoardRequest } },
     async (
         {
             body: {
