@@ -25,6 +25,7 @@ public sealed partial class PaintBoard : BattlegroundObject
     private uint frame_counter = 0;
     private float speed = 5;
     private Vector2 direction = new Vector2(0, 0);
+    private int log_count = 0;
 
     private List<GameObject> circles = new List<GameObject>();
 
@@ -55,11 +56,11 @@ public sealed partial class PaintBoard : BattlegroundObject
             {
                 if (PaintSplatManager.instance.is_host)
                 {
-                    clone = Instantiate(red_circle, pos, new Quaternion());
+                    clone = Instantiate(blue_circle, pos, new Quaternion());
                 }
                 else
                 {
-                    clone = Instantiate(blue_circle, pos, new Quaternion());
+                    clone = Instantiate(red_circle, pos, new Quaternion());
                 }
             }
 
@@ -76,7 +77,7 @@ public sealed partial class PaintBoard : BattlegroundObject
     {
         GetSessionLogRequest request = new GetSessionLogRequest();
         request.session_id = PaintSplatManager.instance.session_id;
-        request.from = 0;
+        request.from = log_count;
         request.to = -1;
         PaintSplatManager.instance.get_session_log(request, get_session_info_callback);
     }
@@ -86,6 +87,7 @@ public sealed partial class PaintBoard : BattlegroundObject
         if (data.success)
         {
             draw(data.logs);
+            log_count += data.logs.Count;
         }
     }
 

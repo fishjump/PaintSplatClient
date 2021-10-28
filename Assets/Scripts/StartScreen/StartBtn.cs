@@ -41,7 +41,13 @@ public class StartBtn : MonoBehaviour
             JoinSessionRequest request = new JoinSessionRequest();
             request.player_id = player_id;
             request.session_id = session_id;
-            PaintSplatManager.instance.join_session(request, null);
+            PaintSplatManager.instance.join_session(request, (JoinSessionResponse data) =>
+            {
+                if (data.success)
+                {
+                    PaintSplatManager.instance.is_host = false;
+                }
+            });
         }
     }
 
