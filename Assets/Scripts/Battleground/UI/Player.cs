@@ -60,15 +60,14 @@ public sealed partial class Player : BattlegroundObject
         }
     }
 
-    private void draw()
+    private void send_draw()
     {
-        GameObject plant_board = GameObject.Find("PlantBoard");
-        if (plant_board == null)
-        {
-            return;
-        }
-
-        plant_board.SendMessage("draw", new DrawParam(gameObject, Color.red, new Vector2()));
+        ActInSessionRequest request = new ActInSessionRequest();
+        request.session_id = PaintSplatManager.instance.session_id;
+        request.player_id = PaintSplatManager.instance.player_id;        
+        request.pos.x = gameObject.transform.position.x;
+        request.pos.y = gameObject.transform.position.y;
+        PaintSplatManager.instance.act_in_session(request, null);
     }
 
     void Update()
@@ -82,7 +81,7 @@ public sealed partial class Player : BattlegroundObject
         {
             if (press_down_draw)
             {
-                draw();
+                send_draw();
             }
             return;
         }

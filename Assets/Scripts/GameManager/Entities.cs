@@ -51,6 +51,7 @@ public struct ActInSessionRequest
 {
     public string player_id;
     public string session_id;
+    public Position pos;
 }
 
 [Serializable]
@@ -82,9 +83,8 @@ public struct GetSessionInfoRequest
     public string session_id;
 }
 
-
 [Serializable]
-public struct GetSessioInfonResponse
+public struct GetSessioInfoResponse
 {
     public bool success;
     public string reason;

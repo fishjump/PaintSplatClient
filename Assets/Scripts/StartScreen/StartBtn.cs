@@ -26,16 +26,11 @@ public class StartBtn : MonoBehaviour
         }
     }
 
-    private void JoinSessionCallback(JoinSessionResponse data)
-    {
-
-    }
-
-    private void GetSessionInfoCallback(GetSessioInfonResponse data)
+    private void get_session_info_callback(GetSessioInfoResponse data)
     {
         if (data.success && data.available_seats == 0)
         {
-            SceneManager.LoadScene("Battleground", LoadSceneMode.Single);
+            PaintSplatManager.instance.goto_battleground(session_id, player_id);
         }
     }
 
@@ -46,7 +41,7 @@ public class StartBtn : MonoBehaviour
             JoinSessionRequest request = new JoinSessionRequest();
             request.player_id = player_id;
             request.session_id = session_id;
-            PaintSplatServer.Instance.join_session(request, JoinSessionCallback);
+            PaintSplatManager.instance.join_session(request, null);
         }
     }
 
@@ -56,7 +51,7 @@ public class StartBtn : MonoBehaviour
         {
             GetSessionInfoRequest request = new GetSessionInfoRequest();
             request.session_id = session_id;
-            PaintSplatServer.Instance.get_session_info(request, GetSessionInfoCallback);
+            PaintSplatManager.instance.get_session_info(request, get_session_info_callback);
         }
     }
 

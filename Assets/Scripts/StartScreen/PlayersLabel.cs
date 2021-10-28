@@ -26,7 +26,7 @@ public class PlayersLabel : MonoBehaviour
         }
     }
 
-    private void GetSessionInfoCallback(GetSessioInfonResponse data)
+    private void get_session_info_callback(GetSessioInfoResponse data)
     {
         if (data.success)
         {
@@ -40,7 +40,7 @@ public class PlayersLabel : MonoBehaviour
         {
             GetSessionInfoRequest request = new GetSessionInfoRequest();
             request.session_id = session_id;
-            PaintSplatServer.Instance.get_session_info(request, GetSessionInfoCallback);
+            PaintSplatManager.instance.get_session_info(request, get_session_info_callback);
         }
     }
 

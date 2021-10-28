@@ -33,7 +33,7 @@ public class CreateBtn : MonoBehaviour
         }
     }
 
-    private void CreateSessionCallback(CreateSessionResponse data)
+    private void create_session_callback(CreateSessionResponse data)
     {
         if (data.success)
         {
@@ -41,11 +41,11 @@ public class CreateBtn : MonoBehaviour
         }
     }
 
-    private void GetSessionInfoCallback(GetSessioInfonResponse data)
+    private void get_session_info_callback(GetSessioInfoResponse data)
     {
         if (data.success && data.available_seats == 0)
         {
-            SceneManager.LoadScene("Battleground", LoadSceneMode.Single);
+            PaintSplatManager.instance.goto_battleground(session_id, player_id); 
         }
     }
 
@@ -55,7 +55,7 @@ public class CreateBtn : MonoBehaviour
         {
             CreateSessionRequest request = new CreateSessionRequest();
             request.player_id = player_id;
-            PaintSplatServer.Instance.create_session(request, CreateSessionCallback);
+            PaintSplatManager.instance.create_session(request, create_session_callback);
         }
     }
 
@@ -65,7 +65,7 @@ public class CreateBtn : MonoBehaviour
         {
             GetSessionInfoRequest request = new GetSessionInfoRequest();
             request.session_id = session_id;
-            PaintSplatServer.Instance.get_session_info(request, GetSessionInfoCallback);
+            PaintSplatManager.instance.get_session_info(request, get_session_info_callback);
         }
     }
 
