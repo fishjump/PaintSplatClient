@@ -103,7 +103,7 @@ public sealed partial class PaintBoard : BattlegroundObject
 
     private void update_speed()
     {
-        speed += 0.001;
+        speed += 0.001f;
     }
 
     private void move()
