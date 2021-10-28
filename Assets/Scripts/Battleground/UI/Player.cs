@@ -108,6 +108,16 @@ public sealed partial class Player : BattlegroundObject
             return;
         }
 
+        if (Input.touchCount > 0) {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended) {
+                float z = gameObject.transform.position.z;
+                gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, z));
+                send_draw();
+                return;
+            }
+        }
+
         try_move(10 * direction * Time.deltaTime);
     }
 }

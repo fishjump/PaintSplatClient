@@ -103,7 +103,7 @@ public sealed partial class PaintBoard : BattlegroundObject
 
     private void update_speed()
     {
-        speed++;
+        speed += 0.001;
     }
 
     private void move()
@@ -149,15 +149,9 @@ public sealed partial class PaintBoard : BattlegroundObject
             return;
         }
 
-        if (frame_counter % 2000 == 0)
-        {
-            update_speed();
-        }
+        update_speed();
 
-        if ((int)(timer * 1000) % 20 == 0)
-        {
-            pull_logs();
-        }
+        pull_logs();
 
         move();
 
