@@ -1,0 +1,56 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class PlayersLabel : MonoBehaviour
+{
+    private float timer = 0;
+
+    private string session_id
+    {
+        get
+        {
+            GameObject obj = GameObject.Find("RoomInput");
+            InputField input = obj.GetComponent<InputField>();
+            return input.text;
+        }
+    }
+
+    private string text
+    {
+        set
+        {
+            TextMeshProUGUI input = gameObject.GetComponent<TextMeshProUGUI>();
+            input.text = value;
+        }
+    }
+
+    private void GetSessionInfoCallback(GetSessioInfonResponse data)
+    {
+        if (data.success)
+        {
+            text = string.Format("Players({0}/2)", 2 - data.available_seats);
+        }
+    }
+
+    private void get_session_info()
+    {
+        if (session_id != string.Empty)
+        {
+            GetSessionInfoRequest request = new GetSessionInfoRequest();
+            request.session_id = session_id;
+            PaintSplatServer.Instance.get_session_info(request, GetSessionInfoCallback);
+        }
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer > 1)
+        {
+            get_session_info();
+            timer = 0;
+        }
+    }
+}

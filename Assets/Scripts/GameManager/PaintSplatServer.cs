@@ -1,6 +1,5 @@
 
 using Proyecto26;
-using UnityEditor;
 using UnityEngine;
 
 public class PaintSplatServer : MonoBehaviour
@@ -26,6 +25,7 @@ public class PaintSplatServer : MonoBehaviour
 
         RestClient.Post(create_session_url, json).Then(response =>
          {
+             print(response.Text);
              cbk(JsonUtility.FromJson<CreateSessionResponse>(response.Text));
          });
     }

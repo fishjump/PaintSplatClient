@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public sealed partial class Player : BattlegroundObject
@@ -73,18 +71,6 @@ public sealed partial class Player : BattlegroundObject
         plant_board.SendMessage("draw", new DrawParam(gameObject, Color.red, new Vector2()));
     }
 
-    private void move()
-    {
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (is_stop)

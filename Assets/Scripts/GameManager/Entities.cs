@@ -44,7 +44,6 @@ public struct JoinSessionResponse
 {
     public bool success;
     public string reason;
-    public Role role;
 }
 
 [Serializable]
@@ -89,5 +88,5 @@ public struct GetSessioInfonResponse
 {
     public bool success;
     public string reason;
-    public List<Role> available_roles;
+    public int available_seats;
 }

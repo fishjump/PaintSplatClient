@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StartBtn : MonoBehaviour
+public class CreateBtn : MonoBehaviour
 {
     private float timer = 0;
 
@@ -24,11 +24,21 @@ public class StartBtn : MonoBehaviour
             InputField input = obj.GetComponent<InputField>();
             return input.text;
         }
+
+        set
+        {
+            GameObject obj = GameObject.Find("RoomInput");
+            InputField input = obj.GetComponent<InputField>();
+            input.text = value;
+        }
     }
 
-    private void JoinSessionCallback(JoinSessionResponse data)
+    private void CreateSessionCallback(CreateSessionResponse data)
     {
-
+        if (data.success)
+        {
+            session_id = data.session_id;
+        }
     }
 
     private void GetSessionInfoCallback(GetSessioInfonResponse data)
@@ -39,14 +49,13 @@ public class StartBtn : MonoBehaviour
         }
     }
 
-    private void join_session()
+    private void create_session()
     {
-        if (player_id != string.Empty && session_id != string.Empty)
+        if (player_id != string.Empty)
         {
-            JoinSessionRequest request = new JoinSessionRequest();
+            CreateSessionRequest request = new CreateSessionRequest();
             request.player_id = player_id;
-            request.session_id = session_id;
-            PaintSplatServer.Instance.join_session(request, JoinSessionCallback);
+            PaintSplatServer.Instance.create_session(request, CreateSessionCallback);
         }
     }
 
@@ -62,7 +71,7 @@ public class StartBtn : MonoBehaviour
 
     public void on_click()
     {
-        join_session();
+        create_session();
     }
 
     void Update()

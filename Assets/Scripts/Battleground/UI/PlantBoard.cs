@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,33 +37,37 @@ public sealed partial class PlantBoard : BattlegroundObject
     private float speed = 10;
     private Vector2 direction = new Vector2(0, 0);
 
-    private List<GameObject> points = new List<GameObject>();
+    private List<GameObject> circles = new List<GameObject>();
+
+    private GameObject red_circle { get { return GameObject.Find("Red"); } }
+    private GameObject blue_circle { get { return GameObject.Find("Blue"); } }
+    private GameObject yellow_circle { get { return GameObject.Find("Yellow"); } }
+    private GameObject green_circle { get { return GameObject.Find("Green"); } }
+
 
     private void draw(DrawParam param)
     {
-        if (!gameObject.contains(param.obj))
+        GameObject clone = Instantiate(blue_circle, param.obj.transform.position, param.obj.transform.rotation);
+
+        if (!gameObject.contains(clone))
         {
             return;
         }
 
-        foreach (var item in points)
+        foreach (var item in circles)
         {
-            if (param.obj.overlays(item))
+            if (clone.overlays(item))
             {
+                Destroy(clone);
                 return;
             }
         }
 
-        GameObject clone = Instantiate(param.obj, param.obj.transform.position, param.obj.transform.rotation);
-        points.Add(clone);
-
-        var list = clone.GetComponents<MonoBehaviour>();
-        foreach (var item in list)
-        {
-            Destroy(item);
-        }
+        clone.GetComponent<Renderer>().enabled = true;
+        clone.transform.localScale = new Vector2(0.5f, 0.5f);
         clone.transform.SetParent(gameObject.transform, true);
 
+        circles.Add(clone);
     }
 
     private void update_direction()
@@ -90,14 +93,11 @@ public sealed partial class PlantBoard : BattlegroundObject
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         update_direction();
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (is_stop)
