@@ -26,14 +26,13 @@ public class PaintSplatManager : MonoBehaviour
 
     public string player_id { get; private set; }
     public string session_id { get; private set; }
-    public bool is_host { get; private set; }
+    public bool is_host { get; set; }
 
 
-    public void goto_battleground(string session_id, string player_id, bool is_host)
+    public void goto_battleground(string session_id, string player_id)
     {
         this.session_id = session_id;
         this.player_id = player_id;
-        this.is_host = is_host;
         SceneManager.LoadScene("Battleground", LoadSceneMode.Single);
     }
 

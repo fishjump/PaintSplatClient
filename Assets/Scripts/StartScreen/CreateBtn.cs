@@ -45,7 +45,8 @@ public class CreateBtn : MonoBehaviour
     {
         if (data.success && data.available_seats == 0)
         {
-            PaintSplatManager.instance.goto_battleground(session_id, player_id, true);
+            PaintSplatManager.instance.is_host = true;
+            PaintSplatManager.instance.goto_battleground(session_id, player_id);
         }
     }
 

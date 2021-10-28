@@ -33,8 +33,6 @@ public sealed partial class PlantBoard : BattlegroundObject
     private GameObject yellow_circle { get { return GameObject.Find("Yellow"); } }
     private GameObject green_circle { get { return GameObject.Find("Green"); } }
 
-    private int logs_count = 0;
-
     private void draw(List<BattleLog> logs)
     {
         foreach (var log in logs)
@@ -91,7 +89,7 @@ public sealed partial class PlantBoard : BattlegroundObject
     {
         GetSessionLogRequest request = new GetSessionLogRequest();
         request.session_id = PaintSplatManager.instance.session_id;
-        request.from = logs_count;
+        request.from = 0;
         request.to = -1;
         PaintSplatManager.instance.get_session_log(request, get_session_info_callback);
     }
@@ -101,7 +99,6 @@ public sealed partial class PlantBoard : BattlegroundObject
         if (data.success)
         {
             draw(data.logs);
-            logs_count += data.logs.Count;
         }
     }
 
