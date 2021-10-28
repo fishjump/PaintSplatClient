@@ -10,6 +10,7 @@ public sealed partial class Player : BattlegroundObject
 
 public sealed partial class Player : BattlegroundObject
 {
+    private GameObject board { get { return GameObject.Find("PaintBoard"); } }
     private bool is_stop = false;
 
     private Vector2 direction
@@ -62,12 +63,33 @@ public sealed partial class Player : BattlegroundObject
 
     private void send_draw()
     {
+        var clone = Instantiate(GameObject.Find("Green"), gameObject.transform.position, new Quaternion());
+
+        if (!board.contains(clone))
+        {
+            Destroy(clone);
+            return;
+        }
+
+        foreach (var item in GameObject.FindGameObjectsWithTag("circle"))
+        {
+            if (clone != item && clone.overlays(item))
+            {
+                Destroy(clone);
+                return;
+            }
+        }
+
         ActInSessionRequest request = new ActInSessionRequest();
+
         request.session_id = PaintSplatManager.instance.session_id;
-        request.player_id = PaintSplatManager.instance.player_id;        
-        request.pos.x = gameObject.transform.position.x;
-        request.pos.y = gameObject.transform.position.y;
+        request.player_id = PaintSplatManager.instance.player_id;
+        request.pos.x = gameObject.transform.position.x - board.transform.position.x;
+        request.pos.y = gameObject.transform.position.y - board.transform.position.y;
+        Debug.Log((request.pos.x, request.pos.y));
         PaintSplatManager.instance.act_in_session(request, null);
+
+        Destroy(clone);
     }
 
     void Update()

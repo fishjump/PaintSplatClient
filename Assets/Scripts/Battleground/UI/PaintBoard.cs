@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed partial class PlantBoard : BattlegroundObject
+public sealed partial class PaintBoard : BattlegroundObject
 {
     public override void on_timer_end()
     {
@@ -10,7 +10,7 @@ public sealed partial class PlantBoard : BattlegroundObject
 }
 
 
-public sealed partial class PlantBoard : BattlegroundObject
+public sealed partial class PaintBoard : BattlegroundObject
 {
     private float timer;
 
@@ -37,7 +37,7 @@ public sealed partial class PlantBoard : BattlegroundObject
     {
         foreach (var log in logs)
         {
-            Vector3 pos = new Vector3(log.pos.x, log.pos.y, -90f);
+            Vector3 pos = new Vector3(log.pos.x + gameObject.transform.position.x, log.pos.y + gameObject.transform.position.y, -90f);
 
             GameObject clone;
             if (log.player_id == PaintSplatManager.instance.player_id)
@@ -63,19 +63,6 @@ public sealed partial class PlantBoard : BattlegroundObject
                 }
             }
 
-            if (!gameObject.contains(clone))
-            {
-                return;
-            }
-
-            foreach (var item in circles)
-            {
-                if (clone.overlays(item))
-                {
-                    Destroy(clone);
-                    return;
-                }
-            }
 
             clone.GetComponent<Renderer>().enabled = true;
             clone.transform.localScale = new Vector2(0.5f, 0.5f);

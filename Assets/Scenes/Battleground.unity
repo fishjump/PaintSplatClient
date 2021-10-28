@@ -446,9 +446,8 @@ GameObject:
   m_Component:
   - component: {fileID: 475893759}
   - component: {fileID: 475893758}
-  - component: {fileID: 475893760}
-  - component: {fileID: 475893762}
   - component: {fileID: 475893761}
+  - component: {fileID: 475893760}
   m_Layer: 0
   m_Name: PaintBoard
   m_TagString: battleground_element
@@ -528,9 +527,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475893757}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6718b8b65d9b9e244b6f86812da5bf2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 608fe30f17d07894a965a7250a7bd5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &475893761
@@ -543,18 +542,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f67adf386b5f6e44f995cc95dc1ae0c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &475893762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475893757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c3e2cb8dc2d11647b70dd80aca586a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519420028
@@ -885,7 +872,7 @@ GameObject:
   - component: {fileID: 1374150399}
   m_Layer: 0
   m_Name: Red
-  m_TagString: Untagged
+  m_TagString: circle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -967,7 +954,7 @@ GameObject:
   - component: {fileID: 1382495106}
   m_Layer: 0
   m_Name: Yellow
-  m_TagString: Untagged
+  m_TagString: circle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1049,7 +1036,7 @@ GameObject:
   - component: {fileID: 1671011122}
   m_Layer: 0
   m_Name: Green
-  m_TagString: Untagged
+  m_TagString: circle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1197,7 +1184,7 @@ GameObject:
   - component: {fileID: 2122692699}
   m_Layer: 0
   m_Name: Blue
-  m_TagString: Untagged
+  m_TagString: circle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
