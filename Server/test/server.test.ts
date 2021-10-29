@@ -24,7 +24,6 @@ test('request the "/battleground/join" route', async t => {
         url: '/battleground/join',
         payload: { "player_id": "test2", "session_id": session_id }
     })
-    console.log(res)
     t.equal(JSON.parse(res.body).success, true, 'Session joined')
 })
 
