@@ -8,6 +8,12 @@
         "uuid": "^8.3.2"
     },
     "scripts": {
-        "start": "ts-node src/server.ts"
+        "start": "ts-node src/server.ts",
+        "test": "tap --reporter=list --watch"
+    },
+    "devDependencies": {
+        "@types/tap": "^15.0.5",
+        "pino-pretty": "^7.1.0",
+        "tap": "^15.0.10"
     }
 }

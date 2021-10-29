@@ -2,7 +2,8 @@ import { Static, Type } from '@sinclair/typebox'
 import { fastify } from 'fastify'
 import { createSession, getSession } from './sessions'
 
-const app = fastify({ logger: true })
+
+export const app = fastify({ logger: true })
 
 const BattlegroundCreate = Type.Object({
     player_id: Type.String(),
@@ -22,6 +23,8 @@ app.post<{ Body: Static<typeof BattlegroundCreate> }>(
         }
     }
 )
+
+
 
 const BattlegroundJoin = Type.Object({
     player_id: Type.String(),
