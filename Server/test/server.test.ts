@@ -60,16 +60,6 @@ test('request the "/battleground/info" route', async t => {
 })
 
 
-test('cover host request the "/battleground/info" route', async t => {
-    const create = app
-    const res = await create.inject({
-        method: 'POST',
-        url: '/battleground/info',
-        payload: { "session_id": session_id }
-    })
-    t.equal(JSON.parse(res.body).success, true, 'Get stats for the current session')
-})
-
 test('failure request to the "/battleground/info" route', async t => {
     const create = app
     const res = await create.inject({
