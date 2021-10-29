@@ -58,6 +58,7 @@ test('request the "/battleground/info" route', async t => {
     t.equal(JSON.parse(res.body).success, true, 'Get stats for the current session')
 })
 
+
 test('failure request to the "/battleground/info" route', async t => {
     const create = app
     const res = await create.inject({
@@ -125,7 +126,7 @@ test('request the /battleground/board/upload route', async t => {
         url: '/battleground/board/upload',
         payload: { "session_id": session_id, "player_id": "test", pos: { x: 5, y: 10 }}
     })
-    t.equal(JSON.parse(res.body).success, true, 'successfully uploaded the player position')
+    t.equal(JSON.parse(res.body).success, true, 'successfully uploaded the board position')
 })
 
 test('Invalid request the /battleground/board/upload route', async t => {
