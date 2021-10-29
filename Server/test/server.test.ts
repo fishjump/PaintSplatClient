@@ -24,6 +24,7 @@ test('request the "/battleground/join" route', async t => {
         url: '/battleground/join',
         payload: { "player_id": "test2", "session_id": session_id }
     })
+    console.log(res)
     t.equal(JSON.parse(res.body).success, true, 'Session joined')
 })
 
@@ -49,6 +50,17 @@ test('Duplicate playerId request to the "/battleground/join" route', async t => 
 
 
 test('request the "/battleground/info" route', async t => {
+    const create = app
+    const res = await create.inject({
+        method: 'POST',
+        url: '/battleground/info',
+        payload: { "session_id": session_id }
+    })
+    t.equal(JSON.parse(res.body).success, true, 'Get stats for the current session')
+})
+
+
+test('cover host request the "/battleground/info" route', async t => {
     const create = app
     const res = await create.inject({
         method: 'POST',
@@ -125,7 +137,7 @@ test('request the /battleground/board/upload route', async t => {
         url: '/battleground/board/upload',
         payload: { "session_id": session_id, "player_id": "test", pos: { x: 5, y: 10 }}
     })
-    t.equal(JSON.parse(res.body).success, true, 'successfully uploaded the player position')
+    t.equal(JSON.parse(res.body).success, true, 'successfully uploaded the board position')
 })
 
 test('Invalid request the /battleground/board/upload route', async t => {
